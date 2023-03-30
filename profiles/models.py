@@ -9,10 +9,11 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     country = CountryField(default='IE', blank=False)
-    city = models.CharField(max_length=150, blank=True)
-    name = models.CharField(max_length=150, blank=True)
-    ask_me = models.TextField(blank=True)
-    tell_me = models.TextField(blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    name = models.CharField(max_length=50, blank=True)
+    about = models.TextField(max_length=300, blank=True)
+    ask_me = models.TextField(max_length=300, blank=True)
+    tell_me = models.TextField(max_length=300, blank=True)
     # looking_for = 
     image = models.ImageField(
         upload_to='images/', default='../hissr_profile_default_ftjipg',

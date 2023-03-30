@@ -50,8 +50,10 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework',
     'django_countries',
+    'multiselectfield',
 
     'profiles',
+    'posts'
 ]
 
 MIDDLEWARE = [
