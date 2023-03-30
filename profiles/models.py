@@ -13,7 +13,8 @@ class Profile(models.Model):
     tell_me = models.TextField(blank=True)
     # looking_for = 
     image = models.ImageField(
-        upload_to='images/', default='../hissr_profile_default_ftjipg'
+        upload_to='images/', default='../hissr_profile_default_ftjipg', 
+        blank=True
     )
 
     class Meta:
