@@ -17,7 +17,6 @@ class FollowerSerializer(serializers.ModelSerializer):
             'id', 'owner', 'created_at', 'followed', 'followed_name'
         ]
 
-    # preventing users from following the same user twice
     def create(self, validated_data):
         try:
             return super().create(validated_data)
