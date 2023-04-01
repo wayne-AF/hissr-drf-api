@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django_countries.serializers import CountryFieldMixin
 from .models import Post
+from likes.models import Like
 
 
 class PostSerializer(CountryFieldMixin, serializers.ModelSerializer):
@@ -8,15 +9,25 @@ class PostSerializer(CountryFieldMixin, serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    like_id = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
+
+    def get_like_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            like = Like.objects.filter(
+                owner=user, post=obj
+            ).first()
+            return like.id if like else None
+        return None
 
     class Meta:
         model = Post
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_at', 'updated_at', 'country', 'city', 'category',
-            'title', 'content'
+            'title', 'content', 'like_id',
         ]
