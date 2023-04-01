@@ -6,13 +6,13 @@ from multiselectfield import MultiSelectField
 
 class Post(models.Model):
     CATEGORY_CHOICES = [
-        ('hangout', 'Hang out'),
-        ('groupchat', 'Group chat'),
-        ('groomingparty', 'Grooming party'),
-        ('dogbullying', 'Dog bullying'),
-        ('birdwatching', 'Bird watching'),
-        ('newfriends', 'New friends'),
-        ('stupidhumans', 'Stupid humans')
+        ('hangout', 'hang out'),
+        ('groupchat', 'group chat'),
+        ('groomingparty', 'grooming party'),
+        ('dogbullying', 'dog bullying'),
+        ('birdwatching', 'bird watching'),
+        ('newfriends', 'new friends'),
+        ('stupidhumans', 'stupid humans')
     ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
