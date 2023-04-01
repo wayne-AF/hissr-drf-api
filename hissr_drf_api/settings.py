@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'multiselectfield',
 
     'profiles',
-    'posts'
+    'posts',
+    'comments',
 ]
 
 MIDDLEWARE = [
