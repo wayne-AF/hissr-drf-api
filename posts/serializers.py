@@ -10,6 +10,8 @@ class PostSerializer(CountryFieldMixin, serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     like_id = serializers.SerializerMethodField()
+    comments_count = serializers.ReadOnlyField()
+    likes_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -29,5 +31,5 @@ class PostSerializer(CountryFieldMixin, serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'created_at', 'updated_at', 'country', 'city', 'category',
-            'title', 'content', 'like_id',
+            'title', 'content', 'like_id', 'likes_count', 'comments_count',
         ]
