@@ -1,9 +1,12 @@
+# Third party imports
 from rest_framework import generics, permissions, filters
-from django.db.models import Count
-from .models import Personal
-from .serializers import PersonalSerializer
-from hissr_drf_api.permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Count
+
+# Internal imports
+from hissr_drf_api.permissions import IsOwnerOrReadOnly
+from .serializers import PersonalSerializer
+from .models import Personal
 
 
 class PersonalList(generics.ListCreateAPIView):
