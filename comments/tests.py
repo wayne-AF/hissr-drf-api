@@ -48,6 +48,34 @@ class CommentDetailViewTests(APITestCase):
         Comment.objects.create(owner=adam, post_id=1, content='comment 1')
         Comment.objects.create(owner=anna, post_id=2, content='comment 2')
 
+    def test_can_retrieve_comment_with_valid_id(self):
+        """
+        Ensures user can retrieve a comment with valid id.
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.get('/comments/1/')
+        self.assertEqual(response.data['content'], 'comment 1')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_cannot_retrieve_comment_with_invalid_id(self):
+        """
+        Ensures user cannot retrieve a comment with invalid id
+        (non-existent comment).
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.get('/comments/123/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_comment_must_include_required_fields(self):
+        """
+        Ensures comment cannot be created without mandatory field (content).
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.post(
+            '/comments/', {'post': 1, 'content': ''}
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
     def test_logged_in_user_can_create_comment(self):
         """
         Ensures logged-in user can create a comment.
@@ -72,21 +100,28 @@ class CommentDetailViewTests(APITestCase):
         self.assertEqual(comment.content, 'updated comment')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # def test_user_can_delete_own_comment():
-
-    # def test_user_cannot_update_another_users_comment():
-
-    # def test_user_cannot_delete_another_users_comment():
-
-    def test_can_retrieve_comment_with_valid_id(self):
+    def test_user_cannot_update_another_users_comment(self):
         """
-        Ensures user can retrieve a post with a valid id.
+        Ensures user cannot update another user's comment.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.get('/comments/1/')
-        self.assertEqual(response.data['content'], 'comment 1')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.put(
+            '/comments/2/', {'content': 'updated comment'}
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    # def test_cannot_retrieve_comment_with_invalid_id():
+    def test_user_can_delete_own_comment(self):
+        """
+        Ensures user can delete their own comment.
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.delete('/comments/1/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    # def test_comment_must_include_required_fields():
+    def test_user_cannot_delete_another_users_comment(self):
+        """
+        Ensures user cannot delete another user's comment.
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.delete('/comments/2/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)

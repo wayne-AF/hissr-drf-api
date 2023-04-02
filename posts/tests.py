@@ -79,7 +79,7 @@ class PostDetailViewTests(APITestCase):
 
     def test_can_retrieve_post_with_valid_id(self):
         """
-        Ensures user can retrieve a post using a valid post id.
+        Ensures user can retrieve a post with valid id.
         """
         response = self.client.get('/posts/1/')
         self.assertEqual(response.data['title'], 'title 1')
@@ -88,7 +88,7 @@ class PostDetailViewTests(APITestCase):
     def test_user_cannot_retrieve_post_with_invalid_id(self):
         """
         Ensures user cannot retrieve a post with invalid id
-        (non-existant post).
+        (non-existent post).
         """
         response = self.client.get('/posts/999/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
