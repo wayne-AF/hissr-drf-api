@@ -11,7 +11,7 @@ class FollowerListViewTest(APITestCase):
     """
     Unit testing for the FollowerList view.
     """
-    
+
     def setUp(self):
         """
         Creates a user instance at the start of every test method.
