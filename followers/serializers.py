@@ -1,12 +1,15 @@
+# Third party imports
 from rest_framework import serializers
-from .models import Follower
 from django.db import IntegrityError
+
+# Internal imports
+from .models import Follower
 
 
 class FollowerSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Follower model
-    Create method handles the unique constraint on 'owner' and 'followed'
+    Serializer for Followers.
+    Create method handles the unique constraint on 'owner' and 'followed'.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     followed_name = serializers.ReadOnlyField(source='followed.username')

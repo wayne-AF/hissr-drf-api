@@ -1,4 +1,7 @@
+# Third party imports
 from django.urls import path
+
+# Internal imports
 from followers import views
 
 urlpatterns = [

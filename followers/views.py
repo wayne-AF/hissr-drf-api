@@ -1,4 +1,7 @@
+# Third party imports
 from rest_framework import generics, permissions
+
+# Internal imports
 from hissr_drf_api.permissions import IsOwnerOrReadOnly
 from .models import Follower
 from .serializers import FollowerSerializer

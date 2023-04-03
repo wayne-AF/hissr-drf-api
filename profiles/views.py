@@ -1,9 +1,12 @@
+# Third party imports
 from rest_framework import generics, filters
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
+
+# Internal imports
 from .models import Profile
 from .serializers import ProfileSerializer
 from hissr_drf_api.permissions import IsOwnerOrReadOnly
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ProfileList(generics.ListAPIView):

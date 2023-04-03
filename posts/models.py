@@ -1,10 +1,16 @@
-from django.db import models
+# Third party imports
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from multiselectfield import MultiSelectField
 
+# Internal imports
+from django.db import models
+
 
 class Post(models.Model):
+    """
+    Post model, related to User, Comment and Like.
+    """
     CATEGORY_CHOICES = [
         ('hangout', 'hang out'),
         ('groupchat', 'group chat'),

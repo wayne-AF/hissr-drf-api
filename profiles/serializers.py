@@ -1,9 +1,15 @@
+# Third party imports
 from rest_framework import serializers
+
+# Internal imports
 from .models import Profile
 from followers.models import Follower
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Profiles.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()

@@ -8,7 +8,7 @@ from .models import Like
 
 class LikeSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Like model.
+    Serializer for Likes.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
 

@@ -1,10 +1,16 @@
+# Third party imports
 from rest_framework import serializers
 from django_countries.serializers import CountryFieldMixin
+
+# Internal imports
 from .models import Post
 from likes.models import Like
 
 
 class PostSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    """
+    Serializer for Posts.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')

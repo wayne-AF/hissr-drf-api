@@ -1,12 +1,16 @@
+# Third party imports
 from rest_framework import serializers
 from django_countries.serializers import CountryFieldMixin
+
+# Internal imports
 from .models import Personal
 from likes.models import Like
 
 
 class PersonalSerializer(CountryFieldMixin, serializers.ModelSerializer):
     """
-    Personals/Missed Connections cannot be commented on or liked.
+    Serializer for Personals.
+    Personals cannot be commented on or liked.
     Users can respond to the poster directly via message.
     """
     owner = serializers.ReadOnlyField(source='owner.username')

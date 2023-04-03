@@ -1,3 +1,4 @@
+# Third party imports
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
@@ -6,6 +7,10 @@ from multiselectfield import MultiSelectField
 
 
 class Profile(models.Model):
+    """
+    Profile model. Contains numerous fields for a user to personalise
+    their profile.
+    """
     SEEKING_CHOICES = [
         ('love', 'love'),
         ('friends', 'friends'),

@@ -8,7 +8,7 @@ from .models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Comment model
+    Serializer for Comments.
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
