@@ -1,8 +1,11 @@
+# Third party imports
 from rest_framework import generics, permissions
+from django_filters.rest_framework import DjangoFilterBackend
+
+# Internal imports
 from hissr_drf_api.permissions import IsOwnerOrReadOnly
 from .models import Comment
 from .serializers import CommentSerializer, CommentDetailSerializer
-from django_filters.rest_framework import DjangoFilterBackend
 
 
 class CommentList(generics.ListCreateAPIView):

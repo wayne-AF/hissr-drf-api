@@ -1,5 +1,8 @@
+# Third party imports
 from django.db import models
 from django.contrib.auth.models import User
+
+# Internal imports
 from posts.models import Post
 
 
