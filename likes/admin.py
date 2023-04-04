@@ -1,4 +1,7 @@
 # Third party imports
 from django.contrib import admin
 
-# Register your models here.
+# Internal imports
+from .models import Like
+
+admin.site.register(Like)
