@@ -72,3 +72,19 @@ class ProfileDetailViewTests(APITestCase):
         self.client.login(username='adam', password='pass')
         response = self.client.put('/profiles/2/', {'about': 'hi there'})
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_user_can_delete_own_profile(self):
+        """
+        Ensures user can delete their profile.
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.delete('/profiles/1/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_user_cannot_delete_another_users_profile(self):
+        """
+        Ensures a user cannot delete another user's profile.
+        """
+        self.client.login(username='adam', password='pass')
+        response = self.client.delete('/profiles/2/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
