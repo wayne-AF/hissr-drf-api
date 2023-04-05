@@ -1,108 +1,231 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Hissr DRF API
+This is the API for the frontend application Hissr.
+The live project can be found [here](https://hissr-drf-api.herokuapp.com).
+## Table of Contents
+1. [User Stories](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#user-stories)
+2. [Database](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#database)
+3. [Design](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#design)
+4. [Technologies Used](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#technologies-used)
+5. [Testing](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#testing)
+	- [Validation](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#validation)
+	- [Testing user stories](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#testing-user-stories)
+	- [Automated testing](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#automated-testing)
+6. [Acknowledgements](https://github.com/wayne-AF/hissr-drf-api/edit/main/README.md#acknowledgements)
+## User stories
+This API serves as the backend for the frontend application Hissr, a community and dating site for cats. The backend is for the use of the admin, so all user stories pertain to them.
+1. I want the ability to create users.
+2. I want the ability to edit users.
+3. I want the ability to edit permissions for users.
+4. I want the ability to delete users.
+5. I want the ability to edit profiles. 
+6. I want the ability to delete profiles.
+7. I want the ability to create posts.
+8. I want the ability to edit posts.
+9. I want the ability to delete posts.
+10. I want the ability to create personals.
+11. I want the ability to edit personals.
+12. I want the ability to delete personals.
+13. I want the ability to create comments.
+14. I want the ability to edit comments.
+15. I want the ability to delete comments.
+16. I want the ability to create a like.
+17. I want the ability to delete a like.
+18. I want the ability to create a follow.
+19. I want the ability to delete a follow.
+## Database
+Database model structure of the API
+<img src="/workspace/hissr-drf-api/documentation/screenshots/entity_relationship_diagram.png">
+#### User model
+- Contains information about the user
+- One-to-one relation with Profile model owner field
+- ForeignKey relation with the Post model owner field
+- ForeignKey relation with the Personal model owner field
+- ForeignKey relation with the Comment model owner field
+- ForeignKey relation with the Like model owner field
+- ForeignKey relation with the Follower model owner and followed fields
+#### Profile model
+- Contains fields for the user to display information about themselves on their profile page
+- MultiSelectField for looking_for allows a user to select from a number of options to specify what they are looking for on the site, i.e. dating, friends, chats, etc.
+- One-to-one relation between the owner field and the User model ID field
+#### Post model
+MultiSelectField for category allows a user to select from a number of options to categorise the topic of the post
+- ForeignKey relation between the owner field and the User model ID field
+- ForeignKey relation with the Comment model post field
+- ForeignKey relation with the Like model post field
+#### Personal model
+- Differs from the Post model in that users cannot like or comment on a personal, they can only reply directly to the user who made the personal
+- Boolean for connection_made field is set to false by default so that when the user finds the person they were looking for, they can mark this field to true
+- ForeignKey relation between the owner field and the User model ID field
+#### Comment model
+- ForeignKey relation between the owner field and the User model ID field
+- ForeignKey relation between the post field and the Post model ID field
+#### Like model
+- ForeignKey relation between the owner field and the User model ID field
+- ForeignKey relation between the post field and the Post model ID field
+#### Follower model
+- ForeignKey relation between the owner field and the User model ID field
+- ForeignKey relation between the followed field and the User model ID field
+## Design
+### Default profile picture
+The default profile image of a cat's silhouette was chosen as the default profile photo because the site is intended for use by cats. 
+![default_profile_image](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/default_profile_picture.png?raw=true)
+## Technologies Used
+### Languages used:
+- Python
+- Django
+### Libraries, Tools & Resources used:
+- [APITestCase](https://www.django-rest-framework.org/api-guide/testing/) - Used for automated testing
+- [Cloudinary](https://cloudinary.com) - Used to store static files
+- [Coverage.py](https://coverage.readthedocs.io/en/7.2.2/) - Used to measure the effectiveness of the unit testing.
+- [DBDiagram.io](https://dbdiagram.io/home) - Used for creation of entity relationship diagram
+- [Django AllAuth](https://django-allauth.readthedocs.io/en/latest/index.html) - Used for user authentication
+- [Django Countries](https://pypi.org/project/django-countries/) - Used to provide country choices for profile, post, and personal models.
+- [Django MultiSelectField](https://pypi.org/project/django-multiselectfield/) - Used to allow user to select multiple fields in profile and post models.
+- [Django REST Framework](https://www.django-rest-framework.org/) - Used to build the API
+- [ElephantSQL](https://www.elephantsql.com/) - Used for PostgresSQL database
+- [Git](https://git-scm.com/) - Used for version control by committing to Git and pushing to GitHub
+- [GitHub](https://github.com/) - Used to store the code pushed from Git
+- [MiniWebTool.com](https://miniwebtool.com/django-secret-key-generator/) - Used for generating secret key
+- [Pillow](https://pillow.readthedocs.io/en/stable/) - Used for image processing
+- [PyCodeStyle](https://pycodestyle.pycqa.org/en/latest/index.html) - Used to confirm PEP8 validation
+- [Vectorstock](https://www.vectorstock.com/) - Used to default profile photo.
+## Testing
+### Validation
+The PyCodeStyle tool was used to check for compliance with PEP8 style conventions. 
+### Testing user stories
+![pp5_api_user_stories_1](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/pp5_api_user_stories_1.png?raw=true)
+![pp5_api_user_stories_2](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/pp5_api_user_stories_2.png?raw=true)
+<details><summary>Test 1 - Ability to create a user</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_01.png">
+</details>
+<details><summary>Test 2 - Ability to edit a user</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_02.png">
+</details>
+<details><summary>Test 3 - Ability to edit user permissions</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_03.png">
+</details>
+<details><summary>Test 4 - Ability to delete a user</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_04.png">
+</details>
+<details><summary>Test 5 - Ability to edit a profile</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_05.png">
+</details>
+<details><summary>Test 6 - Ability to delete a profile</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_06.png">
+</details>
+<details><summary>Test 7 - Ability to create posts</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_07.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_07.2.png">
+</details>
+<details><summary>Test 8 - Ability to edit posts</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_08.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_08.2.png">
+</details>
+<details><summary>Test 9 - Ability to delete posts</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_09.png">
+</details>
+<details><summary>Test 10 - Ability to create personals</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_10.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_10.2.png">
+</details>
+<details><summary>Test 11 - Ability to edit personals</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_11.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_11.2.png">
+</details>
+<details><summary>Test 12 - Ability to delete personals</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_12.png">
+</details>
+<details><summary>Test 13 - Ability to create comments on posts</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_13.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_13.2.png">
+</details>
+<details><summary>Test 14 - Ability to edit comments</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_14.png">
+</details>
+<details><summary>Test 15 - Ability to delete comments</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_15.png">
+</details>
+<details><summary>Test 16 - Ability to create a like</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_16.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_16.2.png">
+</details>
+<details><summary>Test 17 - Ability to delete a like</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_17.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_17.2.png">
+</details>
+<details><summary>Test 18 - Ability to create a follow</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_18.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_18.2.png">
+</details>
+<details><summary>Test 19 - Ability to delete a follow</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_19.1.png">
+<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_19.2.png">
+</details>
 
-Welcome wayne-AF,
+### Automated testing
+Automated testing was carried out using Django Rest Framework's APITestCase.
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+<img src="/workspace/hissr-drf-api/documentation/screenshots/test_results_screenshot.png">
+ 
+#### Comments unit tests
+- Checks that a logged-out user cannot create a comment
+- Checks that a logged-in user can create a comment
+- Checks that a comment with a valid ID can be retrieved
+- Checks that a comment with an invalid ID cannot be retrieved
+- Checks that a comment must include required fields before posting
+- Checks that a user can update their own comment
+- Checks that a user cannot update someone else's comment
+- Checks that a user can delete their own comment
+- Checks that a user cannot delete someone else's comment
+#### Followers unit tests
+- Checks that a logged-out user cannot follow a user
+- Checks that a logged-in user can follow a user
+- Checks that a user can unfollow a user
+- Checks that a user cannot perform an unfollow on behalf of another user
+- Checks that a following instance with a valid ID can be retrieved
+- Checks that a follow instance with an invalid ID cannot be retrieved
+#### Likes unit tests
+- Checks that a logged-out user cannot like a post
+- Checks that a logged-in user can like a post
+- Checks that a user can unlike a post they have previously liked
+- Checks that a user cannot remove another user's like
+- Checks that a like instance with a valid ID can be retrieved
+- Checks that a like instance with invalid ID cannot be retrieved
+#### Personals unit tests
+- Checks that a user can see a list of personals
+- Checks that a logged-out user cannot create a personal
+- Checks that a logged-in user can create a personal
+- Checks that a personal must include required fields before posting
+- Checks that a user can update their own personal
+- Checks that a user cannot update someone else's personal
+- Checks that a user can delete their own personal
+- Checks that a user cannot delete someone else's personal
+- Checks that a personal with a valid ID can be retrieved
+- Checks that a personal with invalid ID cannot be retrieved
+#### Posts unit tests
+- Checks that a user can see a list of posts
+- Checks that a logged-out user cannot create a post
+- Checks that a logged-in user can create a post
+- Checks that a post must include required fields before posting
+- Checks that a user can update their own post
+- Checks that a user cannot update someone else's post
+- Checks that a user can delete their own post
+- Checks that a user cannot delete someone else's post
+- Checks that a post with a valid ID can be retrieved
+- Checks that a post with an invalid ID cannot be retrieved
+#### Profiles unit tests
+- Checks that a user can see a list of profiles
+- Checks that a user can update their own profile
+- Checks that a user cannot update someone else's profile
+- Checks that a user can delete their own profiles
+- Checks that a user cannot delete someone else's profile
+- Checks that a profile with a valid ID can be retrieved
+- Checks that a profile with an invalid ID cannot be retrieved
+### Coverage
+The Coverage tool was used to gauge the effectiveness of the automated testing. 
+<details><summary>Coverage report screenshot</summary>
+<img src="/workspace/hissr-drf-api/documentation/screenshots/coverage_report_screenshot.png">
+</details>
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
-
-## Gitpod Reminders
-
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
-
-`python3 -m http.server`
-
-A blue button should appear to click: _Make Public_,
-
-Another blue button should appear to click: _Open Browser_.
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A blue button should appear to click: _Make Public_,
-
-Another blue button should appear to click: _Open Browser_.
-
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
-------
-
-## Release History
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
-
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
-
-**July 2 2021:** Remove extensions that are not available in Open VSX.
-
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
-
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
-
----
-
-Happy coding!
+## Acknowledgements
+Thanks to my mentor Mo Shami for his guidance and suggestions.
