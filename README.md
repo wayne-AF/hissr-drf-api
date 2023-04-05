@@ -99,73 +99,73 @@ The PyCodeStyle tool was used to check for compliance with PEP8 style convention
 <img src="documentation/screenshots/user_stories/test_01.png">
 </details>
 <details><summary>Test 2 - Ability to edit a user</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_02.png">
+<img src="documentation/screenshots/user_stories/test_02.png">
 </details>
 <details><summary>Test 3 - Ability to edit user permissions</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_03.png">
+<img src="documentation/screenshots/user_stories/test_03.png">
 </details>
 <details><summary>Test 4 - Ability to delete a user</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_04.png">
+<img src="documentation/screenshots/user_stories/test_04.png">
 </details>
 <details><summary>Test 5 - Ability to edit a profile</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_05.png">
+<img src="documentation/screenshots/user_stories/test_05.png">
 </details>
 <details><summary>Test 6 - Ability to delete a profile</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_06.png">
+<img src="documentation/screenshots/user_stories/test_06.png">
 </details>
 <details><summary>Test 7 - Ability to create posts</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_07.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_07.2.png">
+<img src="documentation/screenshots/user_stories/test_07.1.png">
+<img src="documentation/screenshots/user_stories/test_07.2.png">
 </details>
 <details><summary>Test 8 - Ability to edit posts</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_08.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_08.2.png">
+<img src="documentation/screenshots/user_stories/test_08.1.png">
+<img src="documentation/screenshots/user_stories/test_08.2.png">
 </details>
 <details><summary>Test 9 - Ability to delete posts</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_09.png">
+<img src="documentation/screenshots/user_stories/test_09.png">
 </details>
 <details><summary>Test 10 - Ability to create personals</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_10.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_10.2.png">
+<img src="documentation/screenshots/user_stories/test_10.1.png">
+<img src="documentation/screenshots/user_stories/test_10.2.png">
 </details>
 <details><summary>Test 11 - Ability to edit personals</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_11.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_11.2.png">
+<img src="documentation/screenshots/user_stories/test_11.1.png">
+<img src="documentation/screenshots/user_stories/test_11.2.png">
 </details>
 <details><summary>Test 12 - Ability to delete personals</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_12.png">
+<img src="documentation/screenshots/user_stories/test_12.png">
 </details>
 <details><summary>Test 13 - Ability to create comments on posts</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_13.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_13.2.png">
+<img src="documentation/screenshots/user_stories/test_13.1.png">
+<img src="documentation/screenshots/user_stories/test_13.2.png">
 </details>
 <details><summary>Test 14 - Ability to edit comments</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_14.png">
+<img src="documentation/screenshots/user_stories/test_14.png">
 </details>
 <details><summary>Test 15 - Ability to delete comments</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_15.png">
+<img src="documentation/screenshots/user_stories/test_15.png">
 </details>
 <details><summary>Test 16 - Ability to create a like</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_16.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_16.2.png">
+<img src="documentation/screenshots/user_stories/test_16.1.png">
+<img src="documentation/screenshots/user_stories/test_16.2.png">
 </details>
 <details><summary>Test 17 - Ability to delete a like</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_17.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_17.2.png">
+<img src="documentation/screenshots/user_stories/test_17.1.png">
+<img src="documentation/screenshots/user_stories/test_17.2.png">
 </details>
 <details><summary>Test 18 - Ability to create a follow</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_18.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_18.2.png">
+<img src="documentation/screenshots/user_stories/test_18.1.png">
+<img src="documentation/screenshots/user_stories/test_18.2.png">
 </details>
 <details><summary>Test 19 - Ability to delete a follow</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_19.1.png">
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_19.2.png">
+<img src="documentation/screenshots/user_stories/test_19.1.png">
+<img src="documentation/screenshots/user_stories/test_19.2.png">
 </details>
 
 ### Automated testing
 Automated testing was carried out using Django Rest Framework's APITestCase.
 
-<img src="/workspace/hissr-drf-api/documentation/screenshots/test_results_screenshot.png">
+<img src="documentation/screenshots/test_results_screenshot.png">
  
 #### Comments unit tests
 - Checks that a logged-out user cannot create a comment
@@ -224,7 +224,7 @@ Automated testing was carried out using Django Rest Framework's APITestCase.
 ### Coverage
 The Coverage tool was used to gauge the effectiveness of the automated testing. 
 <details><summary>Coverage report screenshot</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/coverage_report_screenshot.png">
+<img src="documentation/screenshots/coverage_report_screenshot.png">
 </details>
 
 ## Acknowledgements
