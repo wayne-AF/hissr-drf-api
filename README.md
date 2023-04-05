@@ -34,7 +34,7 @@ This API serves as the backend for the frontend application Hissr, a community a
 19. I want the ability to delete a follow.
 ## Database
 Database model structure of the API
-<img src="/workspace/hissr-drf-api/documentation/screenshots/entity_relationship_diagram.png">
+<img src="documentation/screenshots/entity_relationship_diagram.png">
 #### User model
 - Contains information about the user
 - One-to-one relation with Profile model owner field
@@ -96,7 +96,7 @@ The PyCodeStyle tool was used to check for compliance with PEP8 style convention
 ![pp5_api_user_stories_1](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/pp5_api_user_stories_1.png?raw=true)
 ![pp5_api_user_stories_2](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/pp5_api_user_stories_2.png?raw=true)
 <details><summary>Test 1 - Ability to create a user</summary>
-<img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_01.png">
+<img src="documentation/screenshots/user_stories/test_01.png">
 </details>
 <details><summary>Test 2 - Ability to edit a user</summary>
 <img src="/workspace/hissr-drf-api/documentation/screenshots/user_stories/test_02.png">
