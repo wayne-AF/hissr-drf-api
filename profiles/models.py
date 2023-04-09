@@ -29,7 +29,7 @@ class Profile(models.Model):
     tell_me = models.TextField(max_length=300, blank=True)
     seeking = MultiSelectField(choices=SEEKING_CHOICES, blank=True)
     image = models.ImageField(
-        upload_to='images/', default='../hissr_profile_default_ftjipg',
+        upload_to='images/', default='../default_profile_pic_2_a59qhb',
         blank=True
     )
 
