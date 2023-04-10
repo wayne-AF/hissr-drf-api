@@ -26,7 +26,7 @@ class Post(models.Model):
     country = CountryField(blank=True)
     city = models.CharField(max_length=50, blank=True)
     category = MultiSelectField(
-        choices=CATEGORY_CHOICES, max_choices=3, blank=True
+        choices=CATEGORY_CHOICES, blank=True
         )
     title = models.CharField(max_length=150, blank=False)
     content = models.TextField(max_length=400, blank=False)

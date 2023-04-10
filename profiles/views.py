@@ -48,4 +48,3 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
         followers_count=Count('owner__followed', distinct=True),
         following_count=Count('owner__following', distinct=True)
     ).order_by('-created_at')
-
