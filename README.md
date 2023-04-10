@@ -54,7 +54,6 @@ MultiSelectField for category allows a user to select from a number of options t
 - ForeignKey relation with the Like model post field
 #### Personal model
 - Differs from the Post model in that users cannot like or comment on a personal, they can only reply directly to the user who made the personal
-- Boolean for connection_made field is set to false by default so that when the user finds the person they were looking for, they can mark this field to true
 - ForeignKey relation between the owner field and the User model ID field
 #### Comment model
 - ForeignKey relation between the owner field and the User model ID field
