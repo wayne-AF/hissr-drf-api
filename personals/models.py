@@ -14,7 +14,7 @@ class Personal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     country = CountryField(default="IE", blank=False)
-    city = models.CharField(max_length=50, blank=True)
+    city = models.CharField(max_length=50, blank=False)
     title = models.CharField(max_length=150, blank=False)
     content = models.TextField(max_length=400, blank=False)
 
