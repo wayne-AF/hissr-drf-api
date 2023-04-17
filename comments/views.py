@@ -19,7 +19,7 @@ class CommentList(generics.ListCreateAPIView):
         DjangoFilterBackend
     ]
     filterset_fields = [
-        'post'
+        'post',
     ]
 
     def perform_create(self, serializer):

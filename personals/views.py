@@ -12,25 +12,31 @@ from .models import Personal
 class PersonalList(generics.ListCreateAPIView):
     """
     List Personal posts or create one if user is logged in.
-    Users cannot like or comment on Personal posts, so users cannot
-    filter posts by likes or comments.
     """
     serializer_class = PersonalSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Personal.objects.all()
+    queryset = Personal.objects.annotate(
+        likes_count=Count('likes', distinct=True),
+        # comments_count=Count('comment', distinct=True)
+    ).order_by('-created_at')
     filter_backends = [
+        filters.OrderingFilter,
         filters.SearchFilter,
         DjangoFilterBackend
     ]
     filterset_fields = [
         'owner__followed__owner__profile',
         'owner__profile',
+        'likes__owner__profile',
     ]
     search_fields = [
         'owner__username',
         'title',
-        'country',
-        'city'
+        'category',
+    ]
+    ordering_fields = [
+        'likes_count',
+        'likes__created_at',
     ]
 
     def perform_create(self, serializer):
@@ -39,9 +45,12 @@ class PersonalList(generics.ListCreateAPIView):
 
 class PersonalDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    User can retrieve a Personal post and edit or delete
+    User can retrieve a Personal and edit or delete
     it if they own it.
     """
     serializer_class = PersonalSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Personal.objects.all()
+    queryset = Personal.objects.annotate(
+        likes_count=Count('likes', distinct=True),
+        # comments_count=Count('comment', distinct=True)
+    ).order_by('-created_at')

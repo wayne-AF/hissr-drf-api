@@ -5,7 +5,7 @@ from rest_framework.test import APITestCase
 
 # Internal imports
 from .models import Like
-from posts.models import Post
+from personals.models import Personal
 
 
 class LikeListViewTests(APITestCase):
@@ -19,9 +19,9 @@ class LikeListViewTests(APITestCase):
         """
         User.objects.create_user(username='adam', password='pass')
 
-    def test_logged_out_user_cannot_like_post(self):
+    def test_logged_out_user_cannot_like_personal(self):
         """
-        Ensures logged-out user cannot like a post.
+        Ensures logged-out user cannot like a personal.
         """
         response = self.client.post('/likes/')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -34,30 +34,33 @@ class LikeDetailViewTests(APITestCase):
 
     def setUp(self):
         """
-        Creates two users, three posts, and two likes for post 1 and post 2 at
-        the start of every test method.
+        Creates two users, three personals, and two likes for personal 1 and 
+        personal 2 at the start of every test method.
         """
         adam = User.objects.create_user(username='adam', password='pass')
         anna = User.objects.create_user(username='anna', password='pass')
 
-        Post.objects.create(owner=adam, title='post 1', content='content 1')
-        Post.objects.create(owner=anna, title='post 2', content='content 2')
-        Post.objects.create(owner=anna, title='post 3', content='content 3')
+        Personal.objects.create(
+            owner=adam, title='personal 1', content='content 1')
+        Personal.objects.create(
+            owner=anna, title='personal 2', content='content 2')
+        Personal.objects.create(
+            owner=anna, title='personal 3', content='content 3')
 
-        Like.objects.create(owner=adam, post_id=2)
-        Like.objects.create(owner=anna, post_id=1)
+        Like.objects.create(owner=adam, personal_id=2)
+        Like.objects.create(owner=anna, personal_id=1)
 
     def test_user_can_like_post(self):
         """
-        Ensures user can like a post.
+        Ensures user can like a personal.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.post('/likes/', {'post': 3})
+        response = self.client.post('/likes/', {'personal': 3})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_user_can_unlike_post(self):
+    def test_user_can_unlike_personal(self):
         """
-        Ensures user can unlike a post they have liked.
+        Ensures user can unlike a personal they have liked.
         """
         self.client.login(username='adam', password='pass')
         response = self.client.delete('/likes/1')

@@ -4,11 +4,12 @@ from django.contrib.auth.models import User
 
 # Internal imports
 from posts.models import Post
+from personals.models import Personal
 
 
 class Comment(models.Model):
     """
-    Comment model, related to User and Post.
+    Comment model, related to User, Post and Personal.
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

@@ -1,22 +1,30 @@
 # Third party imports
-from django.db import models
+from multiselectfield import MultiSelectField
 from django.contrib.auth.models import User
-from django_countries.fields import CountryField
+
+# Internal imports
+from django.db import models
 
 
 class Personal(models.Model):
     """
-    Personal model, differs from the Post model in that users cannot
-    comment or like personals. Instead, users can reply directly to
-    the poster by private message.
+    Personal model, related to User and Like.
     """
+    CATEGORY_CHOICES = [
+        ('grooming', 'grooming'),
+        ('dogbullying', 'dog bullying'),
+        ('birdwatching', 'bird watching'),
+        ('stupidhumans', 'stupid humans'),
+        ('thoughtoftheday', 'thought of the day')
+    ]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    country = CountryField(default="IE", blank=False)
-    city = models.CharField(max_length=50, blank=False)
     title = models.CharField(max_length=150, blank=False)
     content = models.TextField(max_length=400, blank=False)
+    category = MultiSelectField(
+        choices=CATEGORY_CHOICES, blank=True
+        )
 
     class Meta:
         ordering = ['-created_at']

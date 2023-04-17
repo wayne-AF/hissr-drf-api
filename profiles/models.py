@@ -18,8 +18,8 @@ class Profile(models.Model):
     city = models.CharField(max_length=50, blank=True)
     name = models.CharField(max_length=50, blank=True)
     about = models.TextField(max_length=300, blank=True)
-    ask_me = models.TextField(max_length=300, blank=True)
-    tell_me = models.TextField(max_length=300, blank=True)
+    # ask_me = models.TextField(max_length=300, blank=True)
+    # tell_me = models.TextField(max_length=300, blank=True)
     image = models.ImageField(
         upload_to='images/', default='../default_profile_pic_2_a59qhb',
         blank=True
