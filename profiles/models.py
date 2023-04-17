@@ -14,14 +14,12 @@ class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    country = CountryField(blank=True)
+    country = CountryField(default="IE", blank=True)
     city = models.CharField(max_length=50, blank=True)
     name = models.CharField(max_length=50, blank=True)
     about = models.TextField(max_length=300, blank=True)
-    # ask_me = models.TextField(max_length=300, blank=True)
-    # tell_me = models.TextField(max_length=300, blank=True)
     image = models.ImageField(
-        upload_to='images/', default='../default_profile_pic_2_a59qhb',
+        upload_to='images/', default='../head4_20230408061748_250x250_b9k2w2',
         blank=True
     )
 

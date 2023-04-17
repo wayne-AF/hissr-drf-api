@@ -1,12 +1,13 @@
 # Third party imports
 from rest_framework import serializers
+from django_countries.serializers import CountryFieldMixin
 
 # Internal imports
 from .models import Profile
 from followers.models import Follower
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class ProfileSerializer(CountryFieldMixin, serializers.ModelSerializer):
     """
     Serializer for Profiles.
     """
@@ -33,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'id', 'owner', 'created_at', 'updated_at', 'country', 'city',
+            'id', 'owner', 'created_at', 'updated_at', 'city', 'country',
             'name', 'about', 'image', 'is_owner', 'following_id',
             'posts_count', 'followers_count', 'following_count',
         ]
