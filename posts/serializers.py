@@ -36,6 +36,6 @@ class PostSerializer(CountryFieldMixin, serializers.ModelSerializer):
         model = Post
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-            'created_at', 'updated_at', 'category', 'title', 'content',
+            'created_at', 'updated_at', 'title', 'content',
             'comments_count', 'city', 'country'
         ]
