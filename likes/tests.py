@@ -50,7 +50,7 @@ class LikeDetailViewTests(APITestCase):
         Like.objects.create(owner=adam, personal_id=2)
         Like.objects.create(owner=anna, personal_id=1)
 
-    def test_user_can_like_post(self):
+    def test_user_can_like_personal(self):
         """
         Ensures user can like a personal.
         """
@@ -63,7 +63,7 @@ class LikeDetailViewTests(APITestCase):
         Ensures user can unlike a personal they have liked.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.delete('/likes/1')
+        response = self.client.delete('/likes/1/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_user_cannot_remove_other_users_like(self):
@@ -71,7 +71,7 @@ class LikeDetailViewTests(APITestCase):
         Ensures user cannot remove another user's like.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.delete('/likes/2')
+        response = self.client.delete('/likes/2/')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_user_can_retrieve_like_with_valid_id(self):
@@ -79,7 +79,7 @@ class LikeDetailViewTests(APITestCase):
         Ensures user can retrieve a like with valid id.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.get('/likes/1')
+        response = self.client.get('/likes/1/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_user_cannot_retrieve_like_with_invalid_id(self):
@@ -87,5 +87,5 @@ class LikeDetailViewTests(APITestCase):
         Ensures user cannot retrieve a like with invalid id.
         """
         self.client.login(username='adam', password='pass')
-        response = self.client.get('/likes/1234')
+        response = self.client.get('/likes/1234/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
