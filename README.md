@@ -44,30 +44,31 @@ Database model structure of the API
 - ForeignKey relation with the Like model owner field
 - ForeignKey relation with the Follower model owner and followed fields
 #### Profile model
-- Contains fields for the user to display information about themselves on their profile page
-- MultiSelectField for looking_for allows a user to select from a number of options to specify what they are looking for on the site, i.e. dating, friends, chats, etc.
+- Contains about field the user to display information about themselves on their profile page
 - One-to-one relation between the owner field and the User model ID field
 #### Post model
-MultiSelectField for category allows a user to select from a number of options to categorise the topic of the post
+- Country field allows users to choose their country from a dropdown list
 - ForeignKey relation between the owner field and the User model ID field
 - ForeignKey relation with the Comment model post field
-- ForeignKey relation with the Like model post field
 #### Personal model
-- Differs from the Post model in that users cannot like or comment on a personal, they can only reply directly to the user who made the personal
+- Users can like a personal but not post a comment
 - ForeignKey relation between the owner field and the User model ID field
+- ForeignKey relation with the Like model personal field
 #### Comment model
 - ForeignKey relation between the owner field and the User model ID field
 - ForeignKey relation between the post field and the Post model ID field
 #### Like model
 - ForeignKey relation between the owner field and the User model ID field
-- ForeignKey relation between the post field and the Post model ID field
+- ForeignKey relation between the personal field and the Personal model ID field
 #### Follower model
 - ForeignKey relation between the owner field and the User model ID field
 - ForeignKey relation between the followed field and the User model ID field
 ## Design
 ### Default profile picture
-The default profile image of a cat's silhouette was chosen as the default profile photo because the site is intended for use by cats. 
-![default_profile_image](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/default_profile_picture.png?raw=true)
+The default profile image of a cat's silhouette was chosen as the default profile photo because the site is intended for use by cats.
+
+<img src="documentation/screenshots/default_profile_picture.png">
+
 ## Technologies Used
 ### Languages used:
 - Python
@@ -92,8 +93,28 @@ The default profile image of a cat's silhouette was chosen as the default profil
 ### Validation
 The PyCodeStyle tool was used to check for compliance with PEP8 style conventions. 
 ### Testing user stories
-![pp5_api_user_stories_1](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/pp5_api_user_stories_1.png?raw=true)
-![pp5_api_user_stories_2](https://github.com/wayne-AF/hissr-drf-api/blob/main/documentation/screenshots/pp5_api_user_stories_2.png?raw=true)
+**Test #** | **Function** | **Action** | **Expectation** | **Result**
+----------- | -------------------- | -------------------- | -------------------- | ----------
+#01 | Ability to create a user. | Added user with name 'test_user' in admin panel. | User will be created. | PASS
+#02 | Abilty to edit a user. | Updated name of 'test_user' to 'test_user_updated' in admin panel. | Username will be updated. | PASS
+#03 | Ability to edit user permissions. | In use profile in admin panel, changed permissions to give test_user_updated staff status. | User will have staff status.  |  PASS
+#04 | Ability to delete a user. | Deleted test_user_updated in admin panel. | User will no longer exist. | PASS
+#05 | Ability to edit a profile. | Edited profile for test_user_2. | Edits will be visible in test_user_2's profile. | PASS
+#06 | Ability to delete a profile. | Deleted profile for test_user_2. | test_user_2's profile will no longer exist. | PASS
+#07 | Ability to create a post. | Created a post by user1. | Post will be visible in list of posts. | PASS
+#08 | Ability to edit a post. | Edited title and content of previously created post. | Edits will be visible in the post. | PASS
+#09 | Ability to delete a post. | Deleted previously created post. | Post will no longer be visible in list of post. | PASS
+#10 | Ability to create a personal. | Created a personal by user1. | Personal will appear in list of personals. | PASS
+#11 | Ability to edit a personal. | Edited title and content of previously created personal. | Edits will be visible in the personal. | PASS
+#12 | Ability to delete a personal. | Deleted previously created personal. | Personal will no longer be visible in list of personals. | PASS
+#13 | Ability to create comments on posts. | Created a comment by user1 on an existing post. | Comment will be visible in list of comments. | PASS
+#14 | Ability to edit comments. | Edited previously created comment. | Edits will be visible in the comment. | PASS
+#15 | Ability to delete comments. | Deleted previously created comment. | Comment will no longer be visible in list of comments. | PASS
+#16 | Ability to create a like. | Created a like for user1 on an existing personal. | Like will be visible in list of likes. | PASS
+#17 | Ability to delete a like. | Deleted previously created like. | Like will no longer be visible in list of likes. | PASS
+#18 | Ability to create a follow. | Created a follow for user1. | Follow will be visible in list of followers. | PASS
+#19 | Ability to delete a follow. | Deleted previously created follow. | Follow will no longer be visible in list of followers. | PASS
+
 <details><summary>Test 1 - Ability to create a user</summary>
 <img src="documentation/screenshots/user_stories/test_01.png">
 </details>
@@ -184,9 +205,9 @@ Automated testing was carried out using Django Rest Framework's APITestCase.
 - Checks that a following instance with a valid ID can be retrieved
 - Checks that a follow instance with an invalid ID cannot be retrieved
 #### Likes unit tests
-- Checks that a logged-out user cannot like a post
-- Checks that a logged-in user can like a post
-- Checks that a user can unlike a post they have previously liked
+- Checks that a logged-out user cannot like a personal
+- Checks that a logged-in user can like a personal
+- Checks that a user can unlike a personal they have previously liked
 - Checks that a user cannot remove another user's like
 - Checks that a like instance with a valid ID can be retrieved
 - Checks that a like instance with invalid ID cannot be retrieved
