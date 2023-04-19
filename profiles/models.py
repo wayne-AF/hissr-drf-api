@@ -14,7 +14,7 @@ class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    country = CountryField(default="IE", blank=True)
+    country = CountryField(blank=True)
     city = models.CharField(max_length=50, blank=True)
     name = models.CharField(max_length=50, blank=True)
     about = models.TextField(max_length=300, blank=True)
