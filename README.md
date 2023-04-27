@@ -375,7 +375,9 @@ Heroku was used as the deployment platform for this project. Deployment steps ar
 	<details><summary>CLIENT_ORIGIN section</summary>
 	<img src="documentation/deployment_screenshots/deployment_3.png">
 	</details>
-54. This piece of code is used to allow the API to communicate with the front-end development environment and the value for CLIENT_ORIGIN_DEV is set in the Deployment section of that repository.
+54. This piece of code is used to allow the API to communicate with the front-end development environment. In Heroku, navigate back to the Config Vars section and add another KEY:VALUE pair:
+	- CLIENT_ORIGIN_DEV: (link to your front-end development preview app)
+55. The API is now connected and ready for use with the front-end application.
 
 ## Acknowledgements
 Thanks to my mentor Mo Shami for his guidance and suggestions.
