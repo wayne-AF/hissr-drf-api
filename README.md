@@ -252,12 +252,24 @@ The Coverage tool was used to gauge the effectiveness of the automated testing.
 Heroku was used as the deployment platform for this project. Deployment steps are as follows.
 1. Log into [ElephantSQL](https://www.elephantsql.com/) to access the dashboard.
 2. Create a new instance of a database.
+<details><summary>ElephantSQL 1</summary>
+<img src="documentation/deployment_screenshots/elephantsql_1.png">
+</details>
 3. Set up your plan:
 	- Give your plan a name (typically the name of the project)
 	- Select the Tiny Turtle free plan
 	- Leave the Tags field blank
+	<details><summary>ElephantSQL 2</summary>
+<img src="documentation/deployment_screenshots/elephantsql_2.png">
+</details>
 4. Select "Select Region" and select a data center near you.
+<details><summary>ElephantSQL 3</summary>
+<img src="documentation/deployment_screenshots/elephantsql_3.png">
+</details>
 5. Select "Review" and check the details are correct before selecting "Create instance".
+<details><summary>ElephantSQL 4</summary>
+<img src="documentation/deployment_screenshots/elephantsql_4.png">
+</details>
 6. Return to the ElephantSQL dashboard and select the database name you have just created.
 7. In the URL section, copy the database URL. 
 8. Log into [Heroku](https://www.heroku.com) and go to the Dashboard.
