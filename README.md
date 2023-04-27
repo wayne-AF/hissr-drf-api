@@ -252,101 +252,130 @@ The Coverage tool was used to gauge the effectiveness of the automated testing.
 Heroku was used as the deployment platform for this project. Deployment steps are as follows.
 1. Log into [ElephantSQL](https://www.elephantsql.com/) to access the dashboard.
 2. Create a new instance of a database.
-<details><summary>ElephantSQL 1</summary>
-<img src="documentation/deployment_screenshots/elephantsql_1.png">
-</details>
+	<details><summary>ElephantSQL 1</summary>
+	<img src="documentation/deployment_screenshots/elephantsql_1.png">
+	</details>
+
 3. Set up your plan:
 	- Give your plan a name (typically the name of the project)
 	- Select the Tiny Turtle free plan
 	- Leave the Tags field blank
 	<details><summary>ElephantSQL 2</summary>
-<img src="documentation/deployment_screenshots/elephantsql_2.png">
-</details>
+	<img src="documentation/deployment_screenshots/elephantsql_2.png">
+	</details>
+
 4. Select "Select Region" and select a data center near you.
-<details><summary>ElephantSQL 3</summary>
-<img src="documentation/deployment_screenshots/elephantsql_3.png">
-</details>
+	<details><summary>ElephantSQL 3</summary>
+	<img src="documentation/deployment_screenshots/elephantsql_3.png">
+	</details>
+
 5. Select "Review" and check the details are correct before selecting "Create instance".
-<details><summary>ElephantSQL 4</summary>
-<img src="documentation/deployment_screenshots/elephantsql_4.png">
-</details>
+	<details><summary>ElephantSQL 4</summary>
+	<img src="documentation/deployment_screenshots/elephantsql_4.png">
+	</details>
+
 6. Return to the ElephantSQL dashboard and select the database name you have just created.
+	<details><summary>ElephantSQL 5</summary>
+	<img src="documentation/deployment_screenshots/elephantsql_5.png">
+	</details>
 7. In the URL section, copy the database URL. 
+	<details><summary>ElephantSQL 6</summary>
+	<img src="documentation/deployment_screenshots/elephantsql_6.png">
+	</details>
 8. Log into [Heroku](https://www.heroku.com) and go to the Dashboard.
 9. Select "New" and then "Create new app".
+	<details><summary>Heroku 1</summary>
+	<img src="documentation/deployment_screenshots/heroku_1.png">
+	</details>
 10. Choose a unique name for your app and select the region closest to you. Select "Create app" to confirm.
+	<details><summary>Heroku 2</summary>
+	<img src="documentation/deployment_screenshots/heroku_2.png">
+	</details>
 11. Open the Settings tab and add a KEY:VALUE Config Var pair with DATABASE_URL and the copied database URL from ElephantSQL.
+	<details><summary>Heroku 3</summary>
+	<img src="documentation/deployment_screenshots/heroku_3.png">
+	</details>
 12. In the terminal of your Gitpod project, install dj_database_url and psycopg2 to connect to your external database:
 	- `pip3 install dj_database_url==0.5.0 psycopg2`
 13. In settings.py, import dj_database_url underneath the `import os`: 
 	- `import dj_database_url`
 14. Update the DATABASES section to the following:
-	- <details><summary>Databases section</summary>
-		<img src="documentation/deployment_screenshots/deployment_1.png">
-		</details>
+	<details><summary>Databases section</summary>
+	<img src="documentation/deployment_screenshots/deployment_1.png">
+	</details>
+
 15. In env.py, add an environment variable for the database URL. The quotes are required:
 	- `os.environ["DATABASE_URL"] = "ElephantSQL database URL here"`
+	<details><summary>env.py</summary>
+	<img src="documentation/deployment_screenshots/env_1.png">
+	</details>
 16. Comment out `os.environ['DEV']` environment variable so that Gitpod can connect to the external database. 
 17. Migrate your database models to your new database with `python3 manage.py migrate`.
 18. Create a superuser for your database with `python3 manage.py createsuperuser` and follow the steps.
 19. On your database page on ElephantSQL, select "BROWSER" from the vertical navigation bar on the left.
 20. Select "Table queries" and from the dropdown menu, select "auth_user", and then the "Execute" button.
 21. You should see the details of your newly created superuser, confirming that your API has successfully connected to the external database.
-22. Back in your Gitpod terminal, install gunicorn with `pip3 install gunicorn django-cors-headers`.
-23. Update your requirements.txt file with `pip freeze --local > requirements.txt`.
-24. Create a Procfile in your base directory, and add:
+22. To use [Cloudinary](https://cloudinary.com) for static file storage, navigate to your Cloudinary account.
+23. On the Dashboard page, copy the "API Environment variable" from the Product Environment Credentials section.
+	<details><summary>Cloudinary Dashboard</summary>
+	<img src="documentation/deployment_screenshots/cloudinary_1.png">
+	</details>
+24. In the API's env.py file, create an environment variable and set it the value of the copied API Environment variable, making sure to remove "CLOUDINARY_URL=" from the start of the copied text:
+	- `os.environ['CLOUDINARY_URL'] = 'cloudinary://***********************************'`
+	<details><summary>env.py</summary>
+	<img src="documentation/deployment_screenshots/env_2.png">
+	</details>
+25. In settings.py, insert the below code:
+	<details><summary>CLOUDINARY_STORAGE</summary>
+	<img src="documentation/deployment_screenshots/deployment_4.png">
+	</details>
+26. Back in Heroku, navigate to the Settings tab on the dashboard for your API.
+27. Add a new KEY:VALUE pair in the config Var section:
+	- CLOUDINARY_URL: (value from your env.py file that you copied from Cloudinary)
+28. This will enable the API and, when it is connected, the front-end React app to both use Cloudinary for static file storage.
+29. Back in your Gitpod terminal, install gunicorn with `pip3 install gunicorn django-cors-headers`.
+30. Update your requirements.txt file with `pip freeze --local > requirements.txt`.
+31. Create a Procfile in your base directory, and add:
 	- `release: python manage.py makemigrations && python manage.py migrate`
 	- `web: gunicorn drf_api.wsgi`
-25. In settings.py, update the ALLOWED_HOSTS variable:
+32. In settings.py, update the ALLOWED_HOSTS variable:
 	- `ALLOWED_HOSTS = ['localhost', 'heroku_app_name.herokuapp.com']`
-26. Add `corsheaders` to INSTALLED_APPS before `dj_rest_auth.registration`
-27. Add `corsheaders.middleware.CorsMiddleware` to the top of `MIDDLEWARE = [...]`
-28. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the server network requests with this:
-	- <details><summary>ALLOWED_ORIGINS set</summary>
-		<img src="documentation/deployment_screenshots/deployment_2.png">
-		</details>
-29. Under this, set `CORS_ALLOW_CREDENTIALS = True`.
-30. To be able to deploy the front-end app and the API to different platforms, set the `JWT_AUTH_SAMESITE` to `None`:
+33. Add `corsheaders` to INSTALLED_APPS before `dj_rest_auth.registration`
+34. Add `corsheaders.middleware.CorsMiddleware` to the top of `MIDDLEWARE = [...]`
+35. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the server network requests with this:
+	<details><summary>ALLOWED_ORIGINS set</summary>
+	<img src="documentation/deployment_screenshots/deployment_2.png">
+	</details>
+36. Under this, set `CORS_ALLOW_CREDENTIALS = True`.
+37. To be able to deploy the front-end app and the API to different platforms, set the `JWT_AUTH_SAMESITE` to `None`:
 	- `JWT_AUTH_COOKIE = 'my-app-auth'`
 	- `JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'`
 	- `JWT_AUTH_SAMESITE = 'None'`
-31. Correctly set `SECRET_KEY = os.environ.get('SECRET_KEY')` in settings.py, and set the environment variable in env.py `os.environ['SECRET_KEY'] = 'secret_key_value_here'`
-32. Set the DEBUG value in settings.py to be true only if the DEV environment variable exists `DEBUG = 'DEV' in os.environ` and comment `os.environ['DEV'] = '1'` back in env.py.
-33. Ensure the project requirements.txt is up to date with `pip freeze --local > requirements.txt` and add, commit, and push all the changes to Github.
-34. Back in Heroku, navigate to the Settings tab on the dashboard for your newly created app. 
-35. Add two new KEY:VALUE pairs in the Config Vars section:
+
+38. Correctly set `SECRET_KEY = os.environ.get('SECRET_KEY')` in settings.py, and set the environment variable in env.py `os.environ['SECRET_KEY'] = 'secret_key_value_here'`
+39. Set the DEBUG value in settings.py to be true only if the DEV environment variable exists `DEBUG = 'DEV' in os.environ` and comment `os.environ['DEV'] = '1'` back in env.py.
+40. Ensure the project requirements.txt is up to date with `pip freeze --local > requirements.txt` and add, commit, and push all the changes to Github.
+41. Back in Heroku, navigate to the Settings tab on the dashboard for your newly created app. 
+42. Add two new KEY:VALUE pairs in the Config Vars section:
 	- SECRET_KEY: (value from your env.py file)
-	- CLOUDINARY_URL: (value from your env.py file)
 	- DISABLE_COLLECTSTATIC: 1
-36. Navigate to the Deploy tab.
-37. In the Deployment method section, select the Github method, and then search for and connect your Github repository.
-38. If you wish, you can select the "Enable Automatic Deploys" if you wish any further repository changes to be automatically applied to the project.
-39. Select "Deploy Branch" from the Manual deploy section and the build process will start. Once the app has deployed successfully, you will receive a confirmation message. 
-40. Select the "Open app" button at the top of the page and you will be able to view your deployed app. 
-41. To make sure that the API can be used effectively with the React front-end project, you must add two environment variables to settings.py.
-42. In settings.py, in the ALLOWED_HOSTS list, copy the `heroku_app_name.herokuapp.com` string, and replace it with `os.environ.get('ALLOWED_HOST')`, so it looks like this:
+43. Navigate to the Deploy tab.
+44. In the Deployment method section, select the Github method, and then search for and connect your Github repository.
+45. If you wish, you can select the "Enable Automatic Deploys" if you wish any further repository changes to be automatically applied to the project.
+46. Select "Deploy Branch" from the Manual deploy section and the build process will start. Once the app has deployed successfully, you will receive a confirmation message. 
+47. Select the "Open app" button at the top of the page and you will be able to view your deployed app. 
+48. To make sure that the API can be used effectively with the React front-end project, you must add two environment variables to settings.py.
+49. In settings.py, in the ALLOWED_HOSTS list, copy the `heroku_app_name.herokuapp.com` string, and replace it with `os.environ.get('ALLOWED_HOST')`, so it looks like this:
 	- `ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST'), 'localhost',]`
-43. Navigate to the Config Vars section in the Settings tab on your app's Heroku dashboard and add a new KEY:VALUE pair:
+50. Navigate to the Config Vars section in the Settings tab on your app's Heroku dashboard and add a new KEY:VALUE pair:
 	- ALLOWED_HOST: (value you copied from the ALLOWED_HOSTS in settings.py)
-44. In order to better accommodate the way Gitpod works by changing the workspace URL periodically, we must make one final change to settings.py. 
-45. At the top of settings.py, insert `import re`.
-46. Update the `if 'CLIENT_ORIGIN' in os.environ` section to match the below code:
-	- <details><summary>CLIENT_ORIGIN section</summary>
-		<img src="documentation/deployment_screenshots/deployment_3.png">
-		</details>
-47. This piece of code is used to allow the API to communicate with the front-end development environment and the value for CLIENT_ORIGIN_DEV is set in the Deployment section of that repository.
-48. To use [Cloudinary](https://cloudinary.com) for static file storage, navigate to your Cloudinary account.
-49. On the Dashboard page, copy the "API Environment variable" from the Product Environment Credentials section.
-50. In the API's env.py file, create an environment variable and set it the value of the copied API Environment variable, making sure to remove "CLOUDINARY_URL=" from the start of the copied text:
-	- `os.environ['CLOUDINARY_URL'] = 'cloudinary://***********************************'`
-51. In settings.py, insert the below code:
-	- <details><summary>CLOUDINARY_STORAGE</summary>
-		<img src="documentation/deployment_screenshots/deployment_4.png">
-		</details>
-52. Back in Heroku, navigate to the Settings tab on the dashboard for your API.
-53. Add a new KEY:VALUE pair in the config Var section:
-	- CLOUDINARY_URL: (value from your env.py file that you copied from Cloudinary)
-54. This will enable the API and, when it is connected, the front-end React app to both use Cloudinary for static file storage.
+51. In order to better accommodate the way Gitpod works by changing the workspace URL periodically, we must make one final change to settings.py. 
+52. At the top of settings.py, insert `import re`.
+53. Update the `if 'CLIENT_ORIGIN' in os.environ` section to match the below code:
+	<details><summary>CLIENT_ORIGIN section</summary>
+	<img src="documentation/deployment_screenshots/deployment_3.png">
+	</details>
+54. This piece of code is used to allow the API to communicate with the front-end development environment and the value for CLIENT_ORIGIN_DEV is set in the Deployment section of that repository.
 
 ## Acknowledgements
 Thanks to my mentor Mo Shami for his guidance and suggestions.
